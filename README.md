@@ -1,16 +1,8 @@
-<div style='display:flex; gap:10px; align-items:center'>
-<h3 style='font-size:30px'>Gamefetch<h3>
-<img src='/assets/img/1.jpg' width='30px' style='border-radius:10px'></img>
+<div style="display: flex; gap: 10px; align-items: center;">
+  <h3 style="font-size: 30px;">Gamefetch</h3>
 </div>
 
 > **Importante:** O site agrega fontes externas com autoria de terceiros.
-
-<div style='width:200px'>
-
-![teste](/assets/video/video.gif)
-
-</div>
-
 ---
 
 ### Como adicionar novas fontes?
