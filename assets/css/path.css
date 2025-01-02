@@ -1,0 +1,132 @@
+:root {
+    --primary-color: #ce3e3e;
+    --primary-hover-color: #000000;
+    --btn-transition: background-color 0.3s ease, transform 0.2s ease;
+    --btn-border-radius: 5px;
+    --btn-padding: 5px 10px;
+    --btn-font-size: 1rem;
+}
+
+.swal2-confirm {
+    background-color: var(--primary-hover-color);
+}
+
+.custom-button, .input-group-append .btn-primary, .swal2-cancel,
+#toggleFilterBtn, #confirmAddSourceButton, #addNewSourceButton {
+    cursor: pointer;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: none;
+    padding: var(--btn-padding);
+    border-radius: var(--btn-border-radius);
+    font-size: var(--btn-font-size);
+    transition: var(--btn-transition);
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+
+.custom-button:hover, .input-group-append .btn-primary:hover, .swal2-confirm:hover, .swal2-cancel:hover,
+#toggleFilterBtn:hover, #confirmAddSourceButton:hover, #addNewSourceButton:hover {
+    background-color: var(--primary-hover-color);
+    transform: scale(1.05);
+}
+
+.custom-button:focus, .input-group-append .btn-primary:focus, .swal2-confirm:focus, .swal2-cancel:focus,
+#toggleFilterBtn:focus, #confirmAddSourceButton:focus, #addNewSourceButton:focus {
+    outline: none;
+}
+
+.result-item:hover {
+    background-color: #d4dce4;
+}
+
+#confirmAddSourceButton {
+    margin: 1rem;
+    margin-left: 1px;
+}
+
+.custom-button {
+    margin-right: 1rem;
+}
+
+input, textarea, select, .new-source-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+input:focus, textarea:focus, select:focus, .new-source-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(5, 5, 5, 0.5);
+}
+
+#sourceFilter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+#sourceFilter input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    transform: scale(1.2);
+    margin-bottom: 10px;
+}
+
+#sourceFilter label {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    #sourceFilter input[type="checkbox"] {
+        transform: scale(1.5);
+        margin-right: 15px;
+    }
+
+    #sourceFilter label {
+        font-size: 0.9rem;
+    }
+}
+
+.custom-checkbox {
+    color: #ccc;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .new-source-input {
+        font-size: 0.9rem;
+    }
+
+    footer {
+        font-size: 12px;
+    }
+
+    #backToTop {
+        bottom: 15px;
+        right: 15px;
+        padding: 8px 12px;
+    }
+}
