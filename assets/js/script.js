@@ -1,7 +1,6 @@
 document.getElementById('toggleFilterBtn').addEventListener('click', function() {
     const sourceFilterContainer = document.getElementById('sourceFilterContainer');
     const isHidden = sourceFilterContainer.style.display === 'none' || sourceFilterContainer.style.display === '';
-    
     sourceFilterContainer.style.display = isHidden ? 'block' : 'none';
     sourceFilterContainer.classList.toggle('fadeIn', isHidden);
     sourceFilterContainer.classList.toggle('fadeOut', !isHidden);
@@ -10,14 +9,12 @@ document.getElementById('toggleFilterBtn').addEventListener('click', function() 
 function createSourceFilter() {
     const sourceFilterContainer = document.getElementById('sourceFilter');
     const jsonSources = getJsonSources();
-
     const allOption = document.createElement('label');
     allOption.classList.add('custom-checkbox');
     allOption.innerHTML = `
         <input type="checkbox" id="filterAll" value="all" checked> Todos
     `;
     sourceFilterContainer.appendChild(allOption);
-
     jsonSources.forEach((url, index) => {
         fetch(url)
             .then(response => response.json())
@@ -35,7 +32,6 @@ function createSourceFilter() {
 
 function getSelectedSources() {
     const selectedSources = [];
-    
     if (document.getElementById('filterAll').checked) {
         getJsonSources().forEach(url => selectedSources.push(url));
     } else {
@@ -44,14 +40,12 @@ function getSelectedSources() {
             if (checkbox.id !== 'filterAll') selectedSources.push(checkbox.value);
         });
     }
-    
     return selectedSources;
 }
 
 function fetchJsons(selectedSources) {
     const allData = [];
     const filteredSources = getJsonSources().filter(source => selectedSources.includes(source));
-
     return Promise.all(filteredSources.map(url =>
         fetch(url)
             .then(response => {
@@ -75,7 +69,6 @@ function fetchJsons(selectedSources) {
 function searchGame() {
     const titleInput = document.getElementById('gameTitle');
     const title = titleInput.value.toLowerCase().trim();
-
     if (!title) {
         Swal.fire({
             icon: 'warning',
@@ -87,7 +80,6 @@ function searchGame() {
         });
         return;
     }
-
     const selectedSources = getSelectedSources();
     if (selectedSources.length === 0) {
         Swal.fire({
@@ -107,7 +99,7 @@ function searchGame() {
             Swal.fire({
                 icon: 'info',
                 title: 'Nenhum resultado',
-                text: 'Não encontramos jogos com esse título. Tente verificar a ortografia ou testar em outra fonte.',
+                text: 'Não encontramos jogos com esse título. Tente verificar a ortografia ou testar outra fonte.',
                 customClass: { confirmButton: 'swal2-confirm' }
             });
         }
@@ -121,13 +113,10 @@ function searchGame() {
 function displayResults(results) {
     const resultsContainer = document.getElementById('results');
     resultsContainer.innerHTML = '';
-
     if (results.length === 0) return;
-
     results.forEach(result => {
         const listItem = document.createElement('div');
         listItem.className = 'list-group-item flex-column align-items-start d-flex justify-content-between result-item';
-
         const isTorrent = result.isTorrent;
         const content = `
             <div class="d-flex w-100 justify-content-between">
@@ -145,21 +134,26 @@ function displayResults(results) {
                 }
             </div>
         `;
-
         listItem.innerHTML = content;
         resultsContainer.appendChild(listItem);
     });
 }
 
 function copyMagnet(magnetLink) {
-    navigator.clipboard.writeText(magnetLink).then(() => {
+    const tempInput = document.createElement('input');
+    tempInput.value = magnetLink;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999); // Para dispositivos móveis
+    try {
+        document.execCommand('copy');
         Swal.fire({
             icon: 'success',
             title: 'Copiado!',
             text: 'O link Magnet foi copiado para a área de transferência.',
             customClass: { confirmButton: 'swal2-confirm' }
         });
-    }).catch(err => {
+    } catch (err) {
         Swal.fire({
             icon: 'error',
             title: 'Erro!',
@@ -167,22 +161,25 @@ function copyMagnet(magnetLink) {
             customClass: { confirmButton: 'swal2-confirm' }
         });
         console.error('Failed to copy text:', err);
-    });
-}
-
-function openMagnet(magnetLink) {
-    window.open(magnetLink, '_blank');
+    }
+    document.body.removeChild(tempInput);
 }
 
 function copyLink(downloadLink) {
-    navigator.clipboard.writeText(downloadLink).then(() => {
+    const tempInput = document.createElement('input');
+    tempInput.value = downloadLink;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999);
+    try {
+        document.execCommand('copy');
         Swal.fire({
             icon: 'success',
             title: 'Copiado!',
             text: 'O link foi copiado para a área de transferência.',
             customClass: { confirmButton: 'swal2-confirm' }
         });
-    }).catch(err => {
+    } catch (err) {
         Swal.fire({
             icon: 'error',
             title: 'Erro!',
@@ -190,7 +187,12 @@ function copyLink(downloadLink) {
             customClass: { confirmButton: 'swal2-confirm' }
         });
         console.error('Failed to copy text:', err);
-    });
+    }
+    document.body.removeChild(tempInput);
+}
+
+function openMagnet(magnetLink) {
+    window.open(magnetLink, '_blank');
 }
 
 function openLink(downloadLink) {
@@ -205,9 +207,7 @@ function handleKeyPress(event) {
 }
 
 createSourceFilter();
-
 document.getElementById('gameTitle').addEventListener('keypress', handleKeyPress);
-
 const backToTopButton = document.getElementById("backToTop");
 
 window.onscroll = function() {
@@ -216,4 +216,33 @@ window.onscroll = function() {
 
 backToTopButton.onclick = function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+function waitForVideo() {
+    const video = document.querySelector('.video-bg');
+    return new Promise((resolve) => {
+        if (video.readyState >= 3) {
+            resolve();
+        } else {
+            video.addEventListener('canplaythrough', resolve);
+        }
+    });
+}
+
+Pace.on('done', () => {
+    waitForVideo().then(() => {
+        document.getElementById('loading-container').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+    });
+});
+
+document.getElementById('main-content').style.display = 'none';
+
+Pace.options = {
+    ajax: false,
+    document: false,
+    eventLag: false,
+    elements: {
+        selectors: ['body']
+    }
 };

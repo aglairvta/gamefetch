@@ -1,10 +1,14 @@
 :root {
     --primary-color: #ce3e3e;
     --primary-hover-color: #000000;
+    --secondary-color: #ccc;
+    --background-color: #f8f9fa;
     --btn-transition: background-color 0.3s ease, transform 0.2s ease;
     --btn-border-radius: 5px;
     --btn-padding: 5px 10px;
     --btn-font-size: 1rem;
+    --spinner-border: #f3f3f3;
+    --spinner-border-top: var(--primary-color);
 }
 
 .swal2-confirm {
@@ -28,7 +32,6 @@
     box-shadow: none;
     border: none;
 }
-
 
 .custom-button:hover, .input-group-append .btn-primary:hover, .swal2-confirm:hover, .swal2-cancel:hover,
 #toggleFilterBtn:hover, #confirmAddSourceButton:hover, #addNewSourceButton:hover {
@@ -104,7 +107,7 @@ input:focus, textarea:focus, select:focus, .new-source-input:focus {
 }
 
 .custom-checkbox {
-    color: #ccc;
+    color: var(--secondary-color);
 }
 
 @media (max-width: 768px) {
