@@ -21,7 +21,7 @@ function createSourceFilter() {
             .then(response => response.json())
             .then(data => {
                 const sourceName = data.name.split('.')[0].toUpperCase() === 'CH1N' 
-                    ? 'Retrô' 
+                    ? 'RETRÔ' 
                     : data.name.split('.')[0].toUpperCase();
                 const sourceOption = document.createElement('label');
                 sourceOption.classList.add('custom-checkbox');
