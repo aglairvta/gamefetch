@@ -15,14 +15,18 @@ function createSourceFilter() {
         <input type="checkbox" id="filterAll" value="all" checked> Todos
     `;
     sourceFilterContainer.appendChild(allOption);
+    
     jsonSources.forEach((url, index) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
+                const sourceName = data.name.split('.')[0].toUpperCase() === 'CH1N' 
+                    ? 'Retrô' 
+                    : data.name.split('.')[0].toUpperCase();
                 const sourceOption = document.createElement('label');
                 sourceOption.classList.add('custom-checkbox');
                 sourceOption.innerHTML = `
-                    <input type="checkbox" id="filter${index}" value="${url}">${data.name}
+                    <input type="checkbox" id="filter${index}" value="${url}">${sourceName}
                 `;
                 sourceFilterContainer.appendChild(sourceOption);
             })
@@ -120,32 +124,37 @@ function displayResults(results) {
     const resultsContainer = document.getElementById('results');
     resultsContainer.innerHTML = '';
     if (results.length === 0) return;
-
     results.forEach(result => {
         const listItem = document.createElement('div');
         listItem.className = 'list-group-item flex-column align-items-start d-flex justify-content-between result-item';
         const isTorrent = result.isTorrent;
 
-        const sizeText = result.fileSize ? `<p class="mb-1">Tamanho: ${result.fileSize}</p>` : '';
+        const fileSizeContent = result.fileSize && result.source !== 'ch1n.com.br' 
+            ? `<p class="mb-1"><strong>Tamanho:</strong> ${result.fileSize}</p>`
+            : '';
+
+        const uploadDateContent = result.source === 'CH1N' 
+            ? '' 
+            : `<small>${result.uploadDate}</small>`;
 
         const content = `
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">${result.title}</h5>
-                <small>${result.uploadDate}</small>
-            </div>
-            ${sizeText} <!-- Só exibe se o Tamanho estiver presente -->
-            <p class="mb-1"><strong>Fonte:</strong> ${result.source}</p>
-            ${result.console ? `<p class="mb-1"><strong>Console:</strong> ${result.console}</p>` : ''}
-            ${result.senha ? `<p class="mb-1"><strong>Senha:</strong> ${result.senha}</p>` : ''}
-            <div class="d-flex gap-2 mt-2">
-                ${isTorrent
-                    ? `<button class="custom-button" onclick="openMagnet('${result.uris[0]}')">Baixar Magnet</button>
-                       <button class="custom-button" onclick="copyMagnet('${result.uris[0]}')">Copiar Magnet</button>`
-                    : `<button class="custom-button" onclick="openLink('${result.uris[0]}')">Baixar Game</button>
-                       <button class="custom-button" onclick="copyLink('${result.uris[0]}')">Copiar Link</button>`
-                }
-            </div>
-        `;
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">${result.title}</h5>
+            ${uploadDateContent}
+        </div>
+        ${fileSizeContent}
+        <p class="mb-1"><strong>Fonte:</strong> ${result.source === 'CH1N' ? 'Retrô | CH1N' : result.source}</p>
+        ${result.console ? `<p class="mb-1"><strong>Console:</strong> ${result.console}</p>` : ''}
+        ${result.senha ? `<p class="mb-1"><strong>Senha:</strong> ${result.senha}</p>` : ''}
+        <div class="d-flex gap-2 mt-2">
+            ${isTorrent
+                ? `<button class="custom-button" onclick="openMagnet('${result.uris[0]}')">Baixar Magnet</button>
+                   <button class="custom-button" onclick="copyMagnet('${result.uris[0]}')">Copiar Magnet</button>`
+                : `<button class="custom-button" onclick="openLink('${result.uris[0]}')">Baixar Game</button>
+                   <button class="custom-button" onclick="copyLink('${result.uris[0]}')">Copiar Link</button>`
+            }
+        </div>
+    `;
         listItem.innerHTML = content;
         resultsContainer.appendChild(listItem);
     });
