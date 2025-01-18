@@ -39,13 +39,4 @@ function getJsonSources() {
       "fileSize": "tamanho-arquivo"
 },
 ```
-
----
-
-### Créditos:
-
-- [Favicon](https://phosphoricons.com/)
-- [Background](https://www.pexels.com/video/playing-game-on-old-device-10599402/)
-- [Fontes](https://fonts.google.com/specimen/Agu+Display?query=Agu+Display)
-
 ---
