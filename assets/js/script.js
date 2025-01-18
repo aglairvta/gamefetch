@@ -120,28 +120,32 @@ function displayResults(results) {
     const resultsContainer = document.getElementById('results');
     resultsContainer.innerHTML = '';
     if (results.length === 0) return;
+
     results.forEach(result => {
         const listItem = document.createElement('div');
         listItem.className = 'list-group-item flex-column align-items-start d-flex justify-content-between result-item';
         const isTorrent = result.isTorrent;
+
+        const sizeText = result.fileSize ? `<p class="mb-1">Tamanho: ${result.fileSize}</p>` : '';
+
         const content = `
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">${result.title}</h5>
-            <small>${result.uploadDate}</small>
-        </div>
-        <p class="mb-1">Tamanho: ${result.fileSize}</p>
-        <p class="mb-1"><strong>Fonte:</strong> ${result.source}</p>
-        ${result.console ? `<p class="mb-1"><strong>Console:</strong> ${result.console}</p>` : ''}
-        ${result.senha ? `<p class="mb-1"><strong>Senha:</strong> ${result.senha}</p>` : ''}
-        <div class="d-flex gap-2 mt-2">
-            ${isTorrent
-                ? `<button class="custom-button" onclick="openMagnet('${result.uris[0]}')">Baixar Magnet</button>
-                   <button class="custom-button" onclick="copyMagnet('${result.uris[0]}')">Copiar Magnet</button>`
-                : `<button class="custom-button" onclick="openLink('${result.uris[0]}')">Baixar Game</button>
-                   <button class="custom-button" onclick="copyLink('${result.uris[0]}')">Copiar Link</button>`
-            }
-        </div>
-    `;
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">${result.title}</h5>
+                <small>${result.uploadDate}</small>
+            </div>
+            ${sizeText} <!-- Só exibe se o Tamanho estiver presente -->
+            <p class="mb-1"><strong>Fonte:</strong> ${result.source}</p>
+            ${result.console ? `<p class="mb-1"><strong>Console:</strong> ${result.console}</p>` : ''}
+            ${result.senha ? `<p class="mb-1"><strong>Senha:</strong> ${result.senha}</p>` : ''}
+            <div class="d-flex gap-2 mt-2">
+                ${isTorrent
+                    ? `<button class="custom-button" onclick="openMagnet('${result.uris[0]}')">Baixar Magnet</button>
+                       <button class="custom-button" onclick="copyMagnet('${result.uris[0]}')">Copiar Magnet</button>`
+                    : `<button class="custom-button" onclick="openLink('${result.uris[0]}')">Baixar Game</button>
+                       <button class="custom-button" onclick="copyLink('${result.uris[0]}')">Copiar Link</button>`
+                }
+            </div>
+        `;
         listItem.innerHTML = content;
         resultsContainer.appendChild(listItem);
     });
