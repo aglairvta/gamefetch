@@ -54,12 +54,18 @@ function fetchJsons(selectedSources) {
             })
             .then(data => {
                 const sourceName = data.name;
-                const downloadsWithSource = data.downloads.map(download => ({
-                    ...download,
-                    source: sourceName,
-                    isTorrent: download.uris.some(uri => uri.includes('magnet:')),
-                    uploadDate: new Date(download.uploadDate).toLocaleDateString('pt-BR')
-                }));
+                const downloadsWithSource = data.downloads.map(download => {
+                    const isNewStructure = download.Console && download.Senha;
+
+                    return {
+                        ...download,
+                        source: sourceName,
+                        isTorrent: download.uris.some(uri => uri.includes('magnet:')),
+                        uploadDate: new Date(download.uploadDate).toLocaleDateString('pt-BR'),
+                        console: isNewStructure ? download.Console : null, 
+                        senha: isNewStructure ? download.Senha : null     
+                    };
+                });
                 allData.push(...downloadsWithSource);
             })
             .catch(error => console.error(`Erro ao buscar dados de ${url}:`, error))
@@ -119,21 +125,23 @@ function displayResults(results) {
         listItem.className = 'list-group-item flex-column align-items-start d-flex justify-content-between result-item';
         const isTorrent = result.isTorrent;
         const content = `
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">${result.title}</h5>
-                <small>${result.uploadDate}</small>
-            </div>
-            <p class="mb-1">Tamanho: ${result.fileSize}</p>
-            <p class="mb-1"><strong>Fonte:</strong> ${result.source}</p>
-            <div class="d-flex gap-2 mt-2">
-                ${isTorrent
-                    ? `<button class="custom-button" onclick="openMagnet('${result.uris[0]}')">Baixar Magnet</button>
-                       <button class="custom-button" onclick="copyMagnet('${result.uris[0]}')">Copiar Magnet</button>`
-                    : `<button class="custom-button" onclick="openLink('${result.uris[0]}')">Baixar Game</button>
-                       <button class="custom-button" onclick="copyLink('${result.uris[0]}')">Copiar Link</button>`
-                }
-            </div>
-        `;
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">${result.title}</h5>
+            <small>${result.uploadDate}</small>
+        </div>
+        <p class="mb-1">Tamanho: ${result.fileSize}</p>
+        <p class="mb-1"><strong>Fonte:</strong> ${result.source}</p>
+        ${result.console ? `<p class="mb-1"><strong>Console:</strong> ${result.console}</p>` : ''}
+        ${result.senha ? `<p class="mb-1"><strong>Senha:</strong> ${result.senha}</p>` : ''}
+        <div class="d-flex gap-2 mt-2">
+            ${isTorrent
+                ? `<button class="custom-button" onclick="openMagnet('${result.uris[0]}')">Baixar Magnet</button>
+                   <button class="custom-button" onclick="copyMagnet('${result.uris[0]}')">Copiar Magnet</button>`
+                : `<button class="custom-button" onclick="openLink('${result.uris[0]}')">Baixar Game</button>
+                   <button class="custom-button" onclick="copyLink('${result.uris[0]}')">Copiar Link</button>`
+            }
+        </div>
+    `;
         listItem.innerHTML = content;
         resultsContainer.appendChild(listItem);
     });
@@ -144,7 +152,7 @@ function copyMagnet(magnetLink) {
     tempInput.value = magnetLink;
     document.body.appendChild(tempInput);
     tempInput.select();
-    tempInput.setSelectionRange(0, 99999); // Para dispositivos móveis
+    tempInput.setSelectionRange(0, 99999); 
     try {
         document.execCommand('copy');
         Swal.fire({
