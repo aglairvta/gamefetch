@@ -144,7 +144,7 @@ function displayResults(results) {
             ${uploadDateContent}
         </div>
         ${fileSizeContent}
-        <p class="mb-1"><strong>Fonte:</strong> ${result.source === 'CH1N' ? 'Retrô | CH1N' : result.source}</p>
+        <p class="mb-1"><strong>Fonte:</strong> ${result.source === 'CH1N' ? 'Retrô' : result.source}</p>
         ${result.console ? `<p class="mb-1"><strong>Console:</strong> ${result.console}</p>` : ''}
         ${result.senha ? `<p class="mb-1"><strong>Senha:</strong> ${result.senha}</p>` : ''}
         <div class="d-flex gap-2 mt-2">
