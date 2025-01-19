@@ -74,7 +74,7 @@
         "Senha": "ch1n.com.br"
       },
       {
-        "title": "Crash Bandicoot Warped (Crash 3) Dublado/Legendado",
+        "title": "Crash Bandicoot Warped - Crash 3 (Dublado)",
         "uris": [
           "https://www.mediafire.com/file/rin0hbga82vs768/Crash_Bandicoot_3__-_Warped.rar/file"
         ],
@@ -418,7 +418,7 @@
         "Senha": "ch1n.com.br"
       },
       {
-        "title": "Tintin: Destination Adventure (Dublado)://www.mediafire.com/file/jw890s6n7xsliyc/Tiny_Toon_Adventures_Buster_and_the_Beanstalk.rar/filehttp",
+        "title": "Tintin: Destination Adventure (Dublado)",
         "uris": [
           "https://www.mediafire.com/file/jw890s6n7xsliyc/Tiny_Toon_Adventures_Buster_and_the_Beanstalk.rar/file"
         ],
@@ -1386,7 +1386,7 @@
         "Senha": "ch1n.com.br"
       },
       {
-        "title": "Tomb Raider: Angel of Darkness DUBLADO",
+        "title": "Tomb Raider: Angel of Darkness (DUBLADO)",
         "uris": [
           "https://archive.org/download/t-dub-ch-1-n/t-dub-ch-1-n_archive.torrent"
         ],
@@ -2336,6 +2336,13 @@
         ],
         "Console": "Mega Drive [Pack 210]",
         "Senha": "ch1n.com.br"
+      },
+      {
+        "title": "teste",
+        "uris": [
+          "https://www.mediafire.com/file/z87f23a0d1z2fx8/2.zip/file"
+        ],
+        "Console": "PS1"
       }
     ]
-  }
+}
