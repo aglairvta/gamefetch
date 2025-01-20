@@ -57,16 +57,18 @@ function fetchJsons(selectedSources) {
                 return response.json();
             })
             .then(data => {
-                const sourceName = data.name; 
+                const sourceName = data.name;
 
                 const downloadsWithSource = data.downloads.map(download => {
                     const isNewStructure = download.Console || download.Senha;
+                    const uploadDate = new Date(download.uploadDate);
+                    const isValidDate = !isNaN(uploadDate.getTime());
 
                     return {
                         ...download,
                         source: sourceName,
                         isTorrent: download.uris.some(uri => uri.includes('magnet:')),
-                        uploadDate: new Date(download.uploadDate).toLocaleDateString('pt-BR'),
+                        uploadDate: isValidDate ? uploadDate.toLocaleDateString('pt-BR') : '',
                         console: isNewStructure ? download.Console : null,
                         senha: isNewStructure ? download.Senha : null
                     };
