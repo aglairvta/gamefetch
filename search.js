@@ -22,9 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchBtn.addEventListener('click', async () => {
         const query = searchInput.value.trim().toLowerCase();
-        resultList.innerHTML = '<li class="text-center">Carregando...</li>';
+        resultList.innerHTML = '<p class="text-center">Carregando...</p>';
+
         if (!query) {
-            resultList.innerHTML = '<li class="text-center">Digite algo para buscar.</li>';
+            resultList.innerHTML = '<p class="text-center">Digite algo para buscar.</p>';
             return;
         }
 
