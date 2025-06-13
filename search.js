@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultList.innerHTML = '';
 
         if (results.length === 0) {
-            resultList.innerHTML = '<li>Nenhum jogo encontrado.</li>';
+            resultList.innerHTML = '<p class="text-center">Nenhum jogo encontrado.</p>';
             console.log("Nenhum jogo encontrado.");
         } else {
             results.forEach(item => {
