@@ -4,35 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Agregador de fontes para jogos.">
-    <link rel="canonical" href="https://aglairvta.github.io/gamefetch" />
-    <meta property="og:title" content="Gamefetch" />
-    <meta property="og:description" content="Agregador de fontes para jogos." />
-    <meta property="og:url" content="https://aglairvta.github.io/gamefetch" />
-    <meta name="theme-color" content="#000000" />
-    <base href="/gamefetch/">
-    <title>Gamefetch</title>
-    <link rel="stylesheet" href="/style.css">
-    <script src="config.js"></script>
-    <script defer src="search.js"></script>
-    <script src="/toggle.js"></script>
+    <meta name="description" content="Gamefetch é um agregador que organiza fontes de jogos pré-instalados.">
+    <meta name="google-site-verification" content="49aRxgm_o7W2uN-G-0lNjmgdDHO33xIB8w_qv21qPZo" />
+    <link rel="canonical" href="https://gamefetch.netlify.app" />
+    <meta property="og:title" content="Gamefetch – Jogos pré-instalados" />
+    <meta property="og:description" content="Gamefetch é um agregador que organiza fontes de jogos pré-instalados." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gamefetch.netlify.app" />
+    <meta property="og:image" content="https://gamefetch.netlify.app/demo.png" />
+    <title>Gamefetch – Jogos pré-instalados</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="manifest" href="site.webmanifest" />
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script defer src="config.js"></script>
+    <script defer src="search.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script defer src="particle.js"></script>
 </head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
-    
+<body class="dark-mode d-flex flex-column min-vh-100">
+
+    <div id="particles-js" style="position: fixed; width: 100%; height: 100%; z-index: -1;"></div>
+
     <header class="container d-flex flex-column align-items-center mt-3 py-4">
-        <label class="switch position-fixed top-0 end-0 m-3 z-3">
-            <input class="toggle" type="checkbox" />
-            <span class="slider"></span>
-            <span class="card-side"></span>
-        </label>
         <h1 class="text-center text-uppercase text-success my-3">Gamefetch</h1>
+        <h2 class="text-center h6 mb-3">Jogos <span class="neon-underline h6">pré-instalados.</span></h2>
         <input type="text" id="searchInput" placeholder="Digite o nome do jogo"
             class="form-control w-75 mb-3 shadow-sm px-4 py-2" />
         <button class="btn-fill-up w-30 position-relative overflow-hidden" aria-label="Buscar" id="searchBtn">
@@ -41,7 +41,7 @@
         </button>
     </header>
 
-    <main class="container flex-grow-1">
+    <main class="container flex-grow-1 mb-3">
         <ul id="results" class="list-group list-group-flush"></ul>
     </main>
 
@@ -54,7 +54,7 @@
                 </a>
             </p>
             <p class="text-muted small mb-0 text-white-50">
-                Este site apenas indexa links públicos de terceiros.
+                Indexamos exclusivamente links públicos de terceiros.
             </p>
         </div>
     </footer>

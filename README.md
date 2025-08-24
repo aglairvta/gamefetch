@@ -1,6 +1,6 @@
 # Gamefetch
 
-> [!IMPORTANT]
+> [!NOTE]
 > O site agrega fontes externas com autoria de terceiros.
 
 > [!TIP]
